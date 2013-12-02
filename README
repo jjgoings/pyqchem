@@ -1,0 +1,47 @@
+Python Quantum Chemistry (pyqchem)
+
+Joshua J Goings, jjgoings@uw.edu, (2013)
+
+Python Quantum Chemistry (pyqchem) is a series of routines that I use to test new ideas in Electronic Structure theory. There are a series of folders of atoms and small molecules that contain important integral files to be used in all SCf and post-SCF calculations. To run, just execute pyqchem.py followed by the folder of interest.  
+
+For example:
+	>>$ python pyqchem.py h2_3-21G 
+
+Would execute the pyqchem.py script on the folder h2_3-21G, which contains all the precomputed atomic-orbital basis integrals. The type of calculation is changed by editing the pyqchem.py script itself. Say I wanted to perform an MP2 calculation on H2 in a 3-21G basis. I open pyqchem.py, and edit at the top:
+
+pyqchem.py
+-----------
+.
+.
+.
+
+""" Edit below to perform the calculation desired
+"""
+
+do_DIIS      = True     <=== DIIS acceleration (just keep on)
+do_ao2mo     = True     <=== Set to true so we use our optimized (MO) orbitals from SCF
+do_mp2       = True     <=== Set to True so we do an MP2 
+do_cistdhf   = False    <=== Set to False so we don't do a CIS/TDHF
+do_ccsd      = False    <=== Set to False so we don't do CCSD 
+do_eomccsd   = False    <=== Set to False so we don't do CCSD     
+do_eommbpt2  = False    <=== Set to False so we don't do EOM-MBPT2
+do_eommbptp2 = False    <=== Set to False so we don't do EOM-MBPT(2)
+do_eommbptd  = False    <=== Set to False so we don't do EOM-MBPT(D)
+printops     = True     <=== True prints more stuff
+convergence  = 1.0e-8   <=== Our iterative convergence criteria 
+
+.
+.
+.
+-----------
+
+Then run:
+    >>$ python pyqchem.py h2_3-21G
+
+And you'll see the pretty input dump to your terminal :)
+
+Note that the routines aren't really optimized (hey, it's my practice code!), and if you try some heavy stuff like EOM-CCSD on even methane you will be waiting a while. It'll run just fine for MP2 and CIS/TDHF though.
+
+That's all there is to it! Feel free to edit to your liking, but if you take any ideas from it I ask you give me credit.
+
+
