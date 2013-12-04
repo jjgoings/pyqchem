@@ -4,16 +4,16 @@ import sys
 import numpy as np
 import matplotlib.pyplot as plt
 import math
-from integral_input import __init_integrals__ 
-import scf
-import ao2mo
-import mp2
-import cistdhf
-import ccsd
-import eomccsd
-import eommbpt2
-import eommbptp2
-import eommbptd
+from routines.integral_input import __init_integrals__ 
+import routines.scf as scf
+import routines.ao2mo as ao2mo
+import routines.mp2 as mp2
+import routines.cistdhf as cistdhf
+import routines.ccsd as ccsd
+import routines.eomccsd as eomccsd
+import routines.eommbpt2 as eommbpt2
+import routines.eommbptp2 as eommbptp2
+import routines.eommbptd as eommbptd
 
 """ Edit below to perform the calculation desired
 """

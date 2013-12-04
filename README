@@ -23,7 +23,7 @@ do_ao2mo     = True     <=== Set to true so we use our optimized (MO) orbitals f
 do_mp2       = True     <=== Set to True so we do an MP2 
 do_cistdhf   = False    <=== Set to False so we don't do a CIS/TDHF
 do_ccsd      = False    <=== Set to False so we don't do CCSD 
-do_eomccsd   = False    <=== Set to False so we don't do CCSD     
+do_eomccsd   = False    <=== Set to False so we don't do EOM-CCSD     
 do_eommbpt2  = False    <=== Set to False so we don't do EOM-MBPT2
 do_eommbptp2 = False    <=== Set to False so we don't do EOM-MBPT(2)
 do_eommbptd  = False    <=== Set to False so we don't do EOM-MBPT(D)
@@ -38,7 +38,7 @@ convergence  = 1.0e-8   <=== Our iterative convergence criteria
 Then run:
     >>$ python pyqchem.py h2_3-21G
 
-And you'll see the pretty input dump to your terminal :)
+And you'll see the pretty output dump to your terminal :)
 
 Note that the routines aren't really optimized (hey, it's my practice code!), and if you try some heavy stuff like EOM-CCSD on even methane you will be waiting a while. It'll run just fine for MP2 and CIS/TDHF though.
 
