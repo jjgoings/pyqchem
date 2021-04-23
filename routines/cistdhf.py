@@ -31,13 +31,13 @@ def cistdhf(Nelec,dim,fs,ints,printnum):
     # Solve CIS matrix equation
     ECIS,CCIS = np.linalg.eig(A)
     ECIS = np.real(np.sort(ECIS))*27.2114
-    print "E(CIS) = ",ECIS[:printnum],"eV"
+    print("E(CIS) = ",ECIS[:printnum],"eV")
     # Solve TDHF matrix equation
     #M = np.bmat([[A,B],[-B,-A]])
     M = np.dot((A+B),(A-B))
     ETD,CTD = np.linalg.eig(M)
     ETD = np.real(np.sort(np.sqrt(ETD)))*27.2114
-    print "E(TDHF) = ",ETD[:printnum],"eV"
+    print("E(TDHF) = ",ETD[:printnum],"eV")
     del ETD
     del CTD
     del ECIS
