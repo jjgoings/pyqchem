@@ -154,12 +154,12 @@ def ccsd(Nelec,dim,fs,ints,convergence,printops):
 		for e in range(Nelec,dim):
 		  tdnew[a,b,i,j] += td[a,e,i,j]*Fae[b,e] - td[b,e,i,j]*Fae[a,e]
 		  for m in range(0,Nelec):
-		    tdnew[a,b,i,j] += -0.5*td[a,e,i,j]*ts[b,m]*Fme[m,e] + 0.5*td[a,e,i,j]*ts[a,m]*Fme[m,e]
+		    tdnew[a,b,i,j] += -0.5*td[a,e,i,j]*ts[b,m]*Fme[m,e] + 0.5*td[b,e,i,j]*ts[a,m]*Fme[m,e]
 		    continue
 		for m in range(0,Nelec):
 		  tdnew[a,b,i,j] += -td[a,b,i,m]*Fmi[m,j] + td[a,b,j,m]*Fmi[m,i]
 		  for e in range(Nelec,dim):
-		    tdnew[a,b,i,j] += -0.5*td[a,b,i,m]*ts[e,j]*Fme[m,e] + 0.5*td[a,b,i,m]*ts[e,i]*Fme[m,e]
+		    tdnew[a,b,i,j] += -0.5*td[a,b,i,m]*ts[e,j]*Fme[m,e] + 0.5*td[a,b,j,m]*ts[e,i]*Fme[m,e]
 		    continue
 		for e in range(Nelec,dim):
 		  tdnew[a,b,i,j] += ts[e,i]*ints[a,b,e,j] - ts[e,j]*ints[a,b,e,i]
@@ -171,7 +171,7 @@ def ccsd(Nelec,dim,fs,ints,convergence,printops):
 		  for e in range(Nelec,dim):
 		    tdnew[a,b,i,j] += td[a,e,i,m]*Wmbej[m,b,e,j] - ts[e,i]*ts[a,m]*ints[m,b,e,j]
 		    tdnew[a,b,i,j] += -td[a,e,j,m]*Wmbej[m,b,e,i] + ts[e,j]*ts[a,m]*ints[m,b,e,i]
-		    tdnew[a,b,i,j] += -td[b,e,i,m]*Wmbej[m,a,e,j] - ts[e,i]*ts[b,m]*ints[m,a,e,j]
+		    tdnew[a,b,i,j] += -td[b,e,i,m]*Wmbej[m,a,e,j] + ts[e,i]*ts[b,m]*ints[m,a,e,j]
 		    tdnew[a,b,i,j] += td[b,e,j,m]*Wmbej[m,a,e,i] - ts[e,j]*ts[b,m]*ints[m,a,e,i]
 		    continue
 		  for n in range(0,Nelec):
@@ -240,7 +240,7 @@ def ccsd(Nelec,dim,fs,ints,convergence,printops):
                     coeff2 = np.linalg.solve(Bmat2,ZeroVec)
                 except np.linalg.linalg.LinAlgError as err:
                     if 'Singular matrix' in err.message:
-                        print '\tSingular B matrix, turning off DIIS'
+                        print('\tSingular B matrix, turning off DIIS')
                         do_DIIS = False
                 else:
                     T1new = 0.0
@@ -254,9 +254,9 @@ def ccsd(Nelec,dim,fs,ints,convergence,printops):
         ECCSD = ccsdenergy()
         DECC = abs(ECCSD - OLDCC)
         if DECC < convergence:
-            print "TOTAL ITERATIONS: ",j
+            print("TOTAL ITERATIONS: ",j)
             break
         if printops == True:
-            print "E corr: {0:.12f}".format(ECCSD),"a.u.",'\t',"DeltaE: {0:.12f}".format(DECC)
+            print("E corr: {0:.12f}".format(ECCSD),"a.u.",'\t',"DeltaE: {0:.12f}".format(DECC))
     return ECCSD,ts,td 
         
