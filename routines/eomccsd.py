@@ -16,7 +16,7 @@ import numpy as np
 def eomccsd(Nelec,dim,fs,ints,ts,td):
     dim = dim*2
     NOV = Nelec*(dim-Nelec)
-    print "\t\t** Constructing singles-singles block" 
+    print("\t\t** Constructing singles-singles block")
     t0 = time.time()
     HSS = np.zeros((NOV,NOV))
     ia = -1
@@ -50,10 +50,10 @@ def eomccsd(Nelec,dim,fs,ints,ts,td):
                 for f in range(Nelec,dim):
                   HSS[ia,kc] += -(i==k)*ints[m,n,c,f]*ts[a,m]*ts[f,n] # 15
     t1 = time.time()
-    print "\t\t** Finished singles-singles block. Time: ", t1-t0 
+    print("\t\t** Finished singles-singles block. Time: ", t1-t0)
 
 
-    print "\t\t** Constructing singles-doubles block" 
+    print("\t\t** Constructing singles-doubles block")
     t2 = time.time()
     HSD = np.zeros((NOV,NOV*NOV))
     ia = -1
@@ -67,18 +67,18 @@ def eomccsd(Nelec,dim,fs,ints,ts,td):
               for d in range(Nelec,dim):
                 kcld = kcld + 1
                 HSD[ia,kcld] += (i==k)*(a==c)*fs[l,d] # 16
-                HSD[ia,kcld] += 0.5*ints[a,l,c,d]*(i==k) # 17
-                HSD[ia,kcld] += -0.5*ints[k,l,i,d]*(a==c) # 18
+                HSD[ia,kcld] += -0.5*ints[a,l,c,d]*(i==k) # 17
+                HSD[ia,kcld] += 0.5*ints[k,l,i,d]*(a==c) # 18
                 for e in range(Nelec,dim):
-                  HSD[ia,kcld] += -0.5*ints[k,l,e,d]*ts[e,i]*(a==c) # 19
+                  HSD[ia,kcld] += 0.5*ints[k,l,e,d]*ts[e,i]*(a==c) # 19
                 for m in range(0,Nelec):
-                  HSD[ia,kcld] += -0.5*ints[m,l,c,d]*ts[a,m]*(i==k) # 20
+                  HSD[ia,kcld] += 0.5*ints[m,l,c,d]*ts[a,m]*(i==k) # 20
                   for e in range(Nelec,dim):
                     HSD[ia,kcld] += ints[m,k,e,c]*ts[e,m]*(i==l)*(a==d) # 21
     t3 = time.time()
-    print "\t\t** Finished singles-doubles block. Time: ", t3-t2 
+    print("\t\t** Finished singles-doubles block. Time: ", t3-t2)
 
-    print "\t\t** Constructing doubles-singles block" 
+    print("\t\t** Constructing doubles-singles block") 
     t4 = time.time()
     HDS = np.zeros((NOV*NOV,NOV))
     iajb = -1
@@ -136,10 +136,10 @@ def eomccsd(Nelec,dim,fs,ints,ts,td):
                                     (b==c)*ints[k,m,j,e]*td[e,a,m,i] - \
                                     (a==c)*ints[k,m,i,e]*td[e,b,m,j] + \
                                     (a==c)*ints[k,m,j,e]*td[e,b,m,i]  # 31
-                    HDS[iajb,kc] += (i==k)*ts[a,m]*ts[e,i]*ints[m,b,c,e] - \
-                                    (i==k)*ts[b,m]*ts[e,i]*ints[m,a,c,e] - \
-                                    (j==k)*ts[a,m]*ts[e,j]*ints[m,b,c,e] + \
-                                    (j==k)*ts[b,m]*ts[e,j]*ints[m,a,c,e] #38 
+                    HDS[iajb,kc] += (j==k)*ts[a,m]*ts[e,i]*ints[m,b,c,e] - \
+                                    (j==k)*ts[b,m]*ts[e,i]*ints[m,a,c,e] - \
+                                    (i==k)*ts[a,m]*ts[e,j]*ints[m,b,c,e] + \
+                                    (i==k)*ts[b,m]*ts[e,j]*ints[m,a,c,e] #38 
                     HDS[iajb,kc] += (a==c)*ts[e,i]*ts[b,m]*ints[k,m,e,j] - \
                                     (b==c)*ts[e,i]*ts[a,m]*ints[k,m,e,j] - \
                                     (a==c)*ts[e,j]*ts[b,m]*ints[k,m,e,i] + \
@@ -173,9 +173,9 @@ def eomccsd(Nelec,dim,fs,ints,ts,td):
                       HDS[iajb,kc] += (b==c)*ts[e,i]*ts[a,m]*ts[f,j]*ints[m,k,e,f] - \
                                       (a==c)*ts[e,i]*ts[b,m]*ts[f,j]*ints[m,k,e,f]  # 51
     t5 = time.time()
-    print "\t\t** Finished doubles-singles block. Time: ",t5-t4 
+    print("\t\t** Finished doubles-singles block. Time: ",t5-t4) 
 
-    print "\t\t** Constructing doubles-doubles block" 
+    print("\t\t** Constructing doubles-doubles block")
     t6 = time.time()
     HDD = np.zeros((NOV*NOV,NOV*NOV))
     iajb = -1
@@ -201,7 +201,7 @@ def eomccsd(Nelec,dim,fs,ints,ts,td):
                                       (i==l)*(b==d)*ints[k,a,c,j] + \
                                       (j==l)*(b==d)*ints[k,a,c,i] # 56
                     for e in range(Nelec,dim):
-                      HDD[iajb,kcld] += (a==c)*(i==l)*(b==d)*fs[k,e]*ts[e,j] - \
+                      HDD[iajb,kcld] += -(a==c)*(i==l)*(b==d)*fs[k,e]*ts[e,j] + \
                                         (a==c)*(j==l)*(b==d)*fs[k,e]*ts[e,i] # 57
                       HDD[iajb,kcld] += (j==l)*(b==d)*ints[a,k,e,c]*ts[e,i] - \
                                         (i==l)*(b==d)*ints[a,k,e,c]*ts[e,j] - \
@@ -229,7 +229,7 @@ def eomccsd(Nelec,dim,fs,ints,ts,td):
                         HDD[iajb,kcld] += 0.25*(i==k)*(j==l)*ints[m,n,c,d]*td[a,b,m,n] # 65
                         HDD[iajb,kcld] += 0.5*(i==k)*(j==l)*ints[m,n,c,d]*ts[a,m]*ts[b,n]  # 73 
                       for e in range(Nelec,dim):
-                        HDD[iajb,kcld] += (i==k)*(j==l)*(b==d)*ints[m,a,e,c]*ts[e,m] - \
+                        HDD[iajb,kcld] += -(i==k)*(j==l)*(b==d)*ints[m,a,e,c]*ts[e,m] + \
                                           (i==k)*(j==l)*(a==d)*ints[m,b,e,c]*ts[e,m]  # 63 
                         HDD[iajb,kcld] += (a==c)*(i==l)*(b==d)*ints[m,k,e,j]*ts[e,m] - \
                                           (a==c)*(j==l)*(b==d)*ints[m,k,e,i]*ts[e,m]   # 64 
@@ -242,25 +242,25 @@ def eomccsd(Nelec,dim,fs,ints,ts,td):
                                           (l==i)*(a==d)*ints[m,k,e,c]*ts[e,j]*ts[b,m] + \
                                           (l==i)*(b==d)*ints[m,k,e,c]*ts[e,j]*ts[a,m] # 74 
                         for n in range(0,Nelec):
-                          HDD[iajb,kcld] += 0.5*(i==k)*(j==l)*(a==d)*ints[m,n,e,c]*td[b,e,n,m] - \
+                          HDD[iajb,kcld] += -0.5*(i==k)*(j==l)*(a==d)*ints[m,n,e,c]*td[b,e,n,m] + \
                                             0.5*(i==k)*(j==l)*(b==d)*ints[m,n,e,c]*td[a,e,n,m] # 71
-                          HDD[iajb,kcld] += (i==k)*(j==l)*(a==d)*ints[m,n,e,c]*ts[e,m]*ts[b,n] - \
+                          HDD[iajb,kcld] += -(i==k)*(j==l)*(a==d)*ints[m,n,e,c]*ts[e,m]*ts[b,n] + \
                                             (i==k)*(j==l)*(b==d)*ints[m,n,e,c]*ts[e,m]*ts[a,n]# 76
                         for f in range(Nelec,dim):
-                          HDD[iajb,kcld] += 0.5*(a==c)*(i==l)*(b==d)*ints[m,k,e,f]*td[f,e,j,m] - \
+                          HDD[iajb,kcld] += -0.5*(a==c)*(i==l)*(b==d)*ints[m,k,e,f]*td[f,e,j,m] + \
                                             0.5*(a==c)*(j==l)*(b==d)*ints[m,k,e,f]*td[f,e,i,m] # 69
-                          HDD[iajb,kcld] += (a==c)*(i==l)*(b==d)*ints[m,k,e,f]*ts[f,j]*ts[e,m] - \
+                          HDD[iajb,kcld] += -(a==c)*(i==l)*(b==d)*ints[m,k,e,f]*ts[f,j]*ts[e,m] + \
                                             (a==c)*(j==l)*(b==d)*ints[m,k,e,f]*ts[f,i]*ts[e,m]# 75
     t7 = time.time()
-    print "\t\t** Finished doubles-doubles block. Time: ",t7-t6 
+    print("\t\t** Finished doubles-doubles block. Time: ",t7-t6) 
 
     eomMatrix = np.bmat([[HSS,HSD],[HDS,HDD]])
 
-    print "\t\t** Begin full diagonalization"
-    print "\t\t * Matrix dimension:  ", str(len(eomMatrix)) + "x" + str(len(eomMatrix)) 
+    print("\t\t** Begin full diagonalization")
+    print("\t\t * Matrix dimension:  ", str(len(eomMatrix)) + "x" + str(len(eomMatrix)) )
     eomEVal,eomEVec = np.linalg.eig(eomMatrix)
 
-    print "\nExcitations (eV):"
+    print("\nExcitations (eV):")
     for excitation in (np.sort(np.real(eomEVal))*27.21138386):
       if (excitation > 1.0) and (excitation < 50.0):
         print (excitation)
