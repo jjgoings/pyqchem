@@ -18,14 +18,14 @@ def cistdhf(Nelec,dim,fs,ints,printnum):
     B = np.zeros((NOV,NOV))
     I = -1
     for i in range(0,Nelec):
-      for a in range(Nelec,dim*2):
-	I = I + 1
-	J = -1
-	for j in range(0,Nelec):
-	  for b in range(Nelec,dim*2):
-	    J = J+1
-	    A[I,J] = (fs[a,a] - fs[i,i]) * ( i == j ) * (a == b) + ints[a,j,i,b]
-	    B[I,J] =  ints[a,b,i,j]
+        for a in range(Nelec,dim*2):
+            I = I + 1
+            J = -1
+            for j in range(0,Nelec):
+                for b in range(Nelec,dim*2):
+                    J = J+1
+                    A[I,J] = (fs[a,a] - fs[i,i]) * ( i == j ) * (a == b) + ints[a,j,i,b]
+                    B[I,J] =  ints[a,b,i,j]
 
     #print B
     # Solve CIS matrix equation
