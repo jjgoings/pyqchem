@@ -37,7 +37,7 @@ printnum     = 6			# number eigenvalues to print for TDHF/CIS
 # ask for location of integral/input files
 
 if len(sys.argv)==1:
-    print "Enter folder containing input .dat files"
+    print("Enter folder containing input .dat files")
     sys.exit(1)
 
 LOCATION = sys.argv[1]
