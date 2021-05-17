@@ -47,12 +47,12 @@ def makefock(Hcore,P,dim,twoe):
     F = np.zeros((dim,dim))
     for i in range(0,dim):
         for j in range(0,dim):
-          F[i,j] = Hcore[i,j]
-          for k in range(0,dim):
-              for l in range(0,dim):
-                  F[i,j] = F[i,j] +\
-                           P[k,l]*(tei(i+1,j+1,k+1,l+1,twoe) -\
-                           0.5*tei(i+1,k+1,j+1,l+1,twoe))
+            F[i,j] = Hcore[i,j]
+            for k in range(0,dim):
+                for l in range(0,dim):
+                    F[i,j] = F[i,j] +\
+                             P[k,l]*(tei(i+1,j+1,k+1,l+1,twoe) -\
+                             0.5*tei(i+1,k+1,j+1,l+1,twoe))
     return F 
 
 # Calculate change in density matrix
@@ -96,9 +96,9 @@ def scf_iteration(convergence,ENUC,Nelec,dim,S,Hcore,twoe,printops,do_DIIS):
     # output. Look to see the functions defined above for a better
     # understanding of the process. 
     if do_DIIS == True:
-        print "DIIS acceleration ON"
+        print("DIIS acceleration ON")
     elif do_DIIS == False:
-        print "DIIS acceleration OFF"
+        print("DIIS acceleration OFF")
     P = np.zeros((dim,dim)) # P is density matrix, set intially to zero.
     OLDE = 0.0 
     G = np.zeros((dim,dim)) # The G matrix is used to make the Fock matrix
@@ -131,7 +131,7 @@ def scf_iteration(convergence,ENUC,Nelec,dim,S,Hcore,twoe,printops,do_DIIS):
                     coeff = np.linalg.solve(Bmat,ZeroVec)
                 except np.linalg.linalg.LinAlgError as err:
                     if 'Singular matrix' in err.message:
-                        print '\tSingular B matrix, turing off DIIS'
+                        print('\tSingular B matrix, turing off DIIS')
                         do_DIIS = False
                 else:
                     F = 0.0
@@ -148,13 +148,13 @@ def scf_iteration(convergence,ENUC,Nelec,dim,S,Hcore,twoe,printops,do_DIIS):
         # test for convergence. if meets criteria, exit loop and calculate properties of interest
         DELTA = deltae(currentenergy(P,Hcore,F,dim),OLDE)
         if printops == True:
-	        print "E: {0:.12f}".format(currentenergy(P,Hcore,F,dim)+ENUC),"a.u.",'\t',"Delta: {0:.12f}".format(DELTA)
+            print("E: {0:.12f}".format(currentenergy(P,Hcore,F,dim)+ENUC),"a.u.",'\t',"Delta: {0:.12f}".format(DELTA))
         OLDE = currentenergy(P,Hcore,F,dim)
         if DELTA < convergence:
-            print "NUMBER ITERATIONS: ",j
+            print("NUMBER ITERATIONS: ",j)
             break
         if j == 119:
-            print "SCF not converged!"
+            print("SCF not converged!")
             break
         EN = currentenergy(P,Hcore,F,dim)
     #print "TOTAL E(SCF) = \n", EN + ENUC
