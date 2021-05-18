@@ -136,10 +136,10 @@ def eomccsd(Nelec,dim,fs,ints,ts,td):
                                     (b==c)*ints[k,m,j,e]*td[e,a,m,i] - \
                                     (a==c)*ints[k,m,i,e]*td[e,b,m,j] + \
                                     (a==c)*ints[k,m,j,e]*td[e,b,m,i]  # 31
-                    HDS[iajb,kc] += (i==k)*ts[a,m]*ts[e,i]*ints[m,b,c,e] - \
-                                    (i==k)*ts[b,m]*ts[e,i]*ints[m,a,c,e] - \
-                                    (j==k)*ts[a,m]*ts[e,j]*ints[m,b,c,e] + \
-                                    (j==k)*ts[b,m]*ts[e,j]*ints[m,a,c,e] #38 
+                    HDS[iajb,kc] += (j==k)*ts[a,m]*ts[e,i]*ints[m,b,c,e] - \
+                                    (j==k)*ts[b,m]*ts[e,i]*ints[m,a,c,e] - \
+                                    (i==k)*ts[a,m]*ts[e,j]*ints[m,b,c,e] + \
+                                    (i==k)*ts[b,m]*ts[e,j]*ints[m,a,c,e] #38 
                     HDS[iajb,kc] += (a==c)*ts[e,i]*ts[b,m]*ints[k,m,e,j] - \
                                     (b==c)*ts[e,i]*ts[a,m]*ints[k,m,e,j] - \
                                     (a==c)*ts[e,j]*ts[b,m]*ints[k,m,e,i] + \
