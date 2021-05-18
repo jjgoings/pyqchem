@@ -154,14 +154,21 @@ def eommbpt2(Nelec,dim,fs,ints,ts,td):
     print("\t\t * Matrix dinension:  ", str(len(eomMatrix)) + "x" + str(len(eomMatrix)))
     eomEVal,eomEVec = np.linalg.eig(eomMatrix)
 
+    eomEVal = eomEVal.real
+    idx = eomEVal.argsort()
+    eomEVal = eomEVal[idx]
+
     print("\nExcitations (eV):")
+    EOMMBPT2 = []
     for excitation in (np.sort(np.real(eomEVal))*27.21138386):
       if (excitation > 1.0) and (excitation < 50.0):
         print(excitation)
+        EOMMBPT2.append(excitation)
         continue
-    plt.imshow(eomMatrix,interpolation='nearest',cmap='jet',alpha=0.75)
-    plt.colorbar()
-    plt.savefig('eom-mbpt2.png',bbox_inches='tight')
-    plt.close()
+    #plt.imshow(eomMatrix,interpolation='nearest',cmap='jet',alpha=0.75)
+    #plt.colorbar()
+    #plt.savefig('eom-mbpt2.png',bbox_inches='tight')
+    #plt.close()
+    return EOMMBPT2
     del eomMatrix, eomEVal, eomEVec
 
