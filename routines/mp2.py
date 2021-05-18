@@ -18,4 +18,4 @@ def mp2_energy(dim,Nelec,ints,E):
                 for b in range(Nelec,dim*2):
                     CC += 0.25*(ints[i,j,a,b]*ints[i,j,a,b])/(E[i//2] + E[j//2] - E[a//2] - E[b//2])
 
-     return CC
+    return CC

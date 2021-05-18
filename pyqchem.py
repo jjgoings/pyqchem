@@ -21,9 +21,9 @@ import routines.eommbptd as eommbptd
 do_DIIS      = True 
 do_ao2mo     = True
 do_mp2       = True 
-do_cistdhf   = True
+do_cistdhf   = False
 do_ccsd      = True 
-do_eomccsd   = True
+do_eomccsd   = False
 do_eommbpt2  = False
 do_eommbptp2 = False
 do_eommbptd  = False
@@ -101,7 +101,7 @@ if do_eomccsd == True:
 if do_eommbpt2 == True:
     print("\n\t*** Begin EOM-MBPT2 calculation")
     eommbpt2.eommbpt2(Nelec,dim,fs,ints,T1,T2)
-    print (\t*** End EOM-MBPT2 calculation")
+    print("\t*** End EOM-MBPT2 calculation")
 
 if do_eommbptd == True:
     print("\n\t*** Begin EOM-MBPT(D) calculation")

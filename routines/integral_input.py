@@ -43,7 +43,7 @@ def __init_integrals__(Integral_Location):
     Nelec = genfromtxt('./'+ Integral_Location + '/nelec.dat', dtype=int)
     dim   = genfromtxt('./'+ Integral_Location + '/nbf.dat', dtype=int)
 
-   Hcore = T - V
+    Hcore = T + V
 
     #####################################
     #

@@ -15,7 +15,7 @@ import numpy as np
 def eommbptd(Nelec,dim,fs,ints,ts,td):
     dim = dim*2
     NOV = Nelec*(dim-Nelec)
-    print "\t\t** Constructing singles-singles block" 
+    print("\t\t** Constructing singles-singles block") 
     t0 = time.time()
     HSS = np.zeros((NOV,NOV))
     ia = -1
@@ -37,10 +37,10 @@ def eommbptd(Nelec,dim,fs,ints,ts,td):
                 for f in range(Nelec,dim):
                   HSS[ia,kc] += -0.5*(a==c)*ints[k,m,e,f]*td[e,f,i,m] # 11
     t1 = time.time()
-    print "\t\t** Finished singles-singles block. Time: ", t1-t0 
+    print("\t\t** Finished singles-singles block. Time: ", t1-t0) 
 
 
-    print "\t\t** Constructing singles-doubles block" 
+    print("\t\t** Constructing singles-doubles block") 
     t2 = time.time()
     HSD = np.zeros((NOV,NOV*NOV))
     ia = -1
@@ -56,9 +56,9 @@ def eommbptd(Nelec,dim,fs,ints,ts,td):
                 HSD[ia,kcld] += 0.5*ints[a,l,c,d]*(i==k) # 17
                 HSD[ia,kcld] += -0.5*ints[k,l,i,d]*(a==c) # 18
     t3 = time.time()
-    print "\t\t** Finished singles-doubles block. Time: ", t3-t2 
+    print("\t\t** Finished singles-doubles block. Time: ", t3-t2) 
 
-    print "\t\t** Constructing doubles-singles block" 
+    print("\t\t** Constructing doubles-singles block") 
     t4 = time.time()
     HDS = np.zeros((NOV*NOV,NOV))
     iajb = -1
@@ -97,9 +97,9 @@ def eommbptd(Nelec,dim,fs,ints,ts,td):
                                     (a==c)*ints[k,m,i,e]*td[e,b,m,j] + \
                                     (a==c)*ints[k,m,j,e]*td[e,b,m,i]  # 31
     t5 = time.time()
-    print "\t\t** Finished doubles-singles block. Time: ",t5-t4 
+    print("\t\t** Finished doubles-singles block. Time: ",t5-t4) 
 
-    print "\t\t** Constructing doubles-doubles block" 
+    print("\t\t** Constructing doubles-doubles block") 
     t6 = time.time()
     HDD = np.zeros((NOV*NOV,NOV*NOV))
     iajb = -1
@@ -125,18 +125,18 @@ def eommbptd(Nelec,dim,fs,ints,ts,td):
                                       (i==l)*(b==d)*ints[k,a,c,j] + \
                                       (j==l)*(b==d)*ints[k,a,c,i] # 56
     t7 = time.time()
-    print "\t\t** Finished doubles-doubles block. Time: ",t7-t6 
+    print("\t\t** Finished doubles-doubles block. Time: ",t7-t6) 
 
     eomMatrix = np.bmat([[HSS,HSD],[HDS,HDD]])
 
-    print "\t\t** Begin full diagonalization"
-    print "\t\t * Matrix dinension:  ", str(len(eomMatrix)) + "x" + str(len(eomMatrix)) 
+    print("\t\t** Begin full diagonalization")
+    print("\t\t * Matrix dinension:  ", str(len(eomMatrix)) + "x" + str(len(eomMatrix))) 
     eomEVal,eomEVec = np.linalg.eig(eomMatrix)
 
-    print "\nExcitations (eV):"
+    print("\nExcitations (eV):")
     for excitation in (np.sort(np.real(eomEVal))*27.21138386):
       if (excitation > 1.0) and (excitation < 50.0):
-        print (excitation)
+        print(excitation)
         continue
     plt.imshow(eomMatrix,interpolation='nearest',cmap='jet',alpha=0.75)
     plt.colorbar()

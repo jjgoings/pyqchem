@@ -93,7 +93,7 @@ def eomccsd(Nelec,dim,fs,ints,ts,td):
                             kc += 1
                             HDS[iajb,kc] += (i==k)*ints[a,b,c,j] - \
                                             (j==k)*ints[a,b,c,i]                                                            # 22
-                            HDS[iajb,kc] += (b==c)*ints[k,a,i,j] - \ 
+                            HDS[iajb,kc] += (b==c)*ints[k,a,i,j] - \
                                             (a==c)*ints[k,b,i,j]                                                            # 23
                             for e in range(Nelec,dim):
                                 HDS[iajb,kc] += (i==k)*ints[a,b,c,e]*ts[e,j] - \
@@ -102,7 +102,7 @@ def eomccsd(Nelec,dim,fs,ints,ts,td):
                                                 (b==c)*ints[k,a,e,i]*ts[e,j] - \
                                                 (a==c)*ints[k,b,e,j]*ts[e,i] + \
                                                 (a==c)*ints[k,b,e,i]*ts[e,j]                                                # 27 
-                                HDS[iajb,kc] += (b==c)*fs[k,e]*td[e,a,i,j] - \  
+                                HDS[iajb,kc] += (b==c)*fs[k,e]*td[e,a,i,j] - \
                                                 (a==c)*fs[k,e]*td[e,b,i,j]                                                  # 29
                                 HDS[iajb,kc] += ints[k,a,c,e]*td[e,b,i,j] - \
                                                 ints[k,b,c,e]*td[e,a,i,j]                                                   # 34 
@@ -221,7 +221,7 @@ def eomccsd(Nelec,dim,fs,ints,ts,td):
                                                           (j==l)*(a==d)*ints[m,k,i,c]*ts[b,m]                               # 60
                                         HDD[iajb,kcld] += 0.5*(j==l)*(i==k)*ints[m,a,c,d]*ts[b,m] - \
                                                           0.5*(j==l)*(i==k)*ints[m,b,c,d]*ts[a,m]                           # 61
-                                        HDD[iajb,kcld] += 0.5*(j==l)*ints[k,m,c,d]*td[a,b,m,i] - \ 
+                                        HDD[iajb,kcld] += 0.5*(j==l)*ints[k,m,c,d]*td[a,b,m,i] - \
                                                           0.5*(i==l)*ints[k,m,c,d]*td[a,b,m,j]                              # 68 
                                         for n in range(0,Nelec):
                                             HDD[iajb,kcld] += 0.25*(i==k)*(j==l)*ints[m,n,c,d]*td[a,b,m,n]                  # 65

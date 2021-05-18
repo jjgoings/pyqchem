@@ -4,7 +4,7 @@ from __future__ import division
 import math
 import numpy as np
 from numpy import genfromtxt
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 
 # Symmetrize a matrix given a triangular one
 def symmetrize(a):
