@@ -38,6 +38,7 @@ def cistdhf(Nelec,dim,fs,ints,printnum):
     ETD,CTD = np.linalg.eig(M)
     ETD = np.real(np.sort(np.sqrt(ETD)))*27.2114
     print("E(TDHF) = ",ETD[:printnum],"eV")
+    return ECIS,ETD
     del ETD
     del CTD
     del ECIS
