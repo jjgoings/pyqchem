@@ -1,4 +1,4 @@
-As of 2021, this repo has been archived. This is extremely old and slow and clunky code, written as a first-year graduate student, and much better reference implementations exit (e.g. Psi4Numpy). Use at your own risk ;)
+As of 2021, this repo has been archived. This is extremely old and slow and clunky code, written as a first-year graduate student, and much better reference implementations exist (e.g. Psi4Numpy). Perhaps you will find something useful here (code is highly similar to equations), but use at your own risk! ;)
 
 Python Quantum Chemistry (pyqchem)
 
